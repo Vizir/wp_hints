@@ -18,7 +18,9 @@ app.get('/', function(request, response) {
 });
 
 app.post('/', function(request, response) {
-  response.render('pages/index', {oldDomain: request.body.oldDomain, newDomain: request.body.newDomain } );
+  var oldDomain = request.body.oldDomain + "/";
+  var newDomain = request.body.newDomain + "/";
+  response.render('pages/index', {oldDomain: oldDomain, newDomain: newDomain } );
   //response.send(request.body.oldDomain);
 });
 
