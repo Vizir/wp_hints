@@ -9,8 +9,17 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 app.get('/', function(request, response) {
-  response.render('pages/index');
+  response.render('pages/index', {oldDomain: null, newDomain: null});
+});
+
+app.post('/', function(request, response) {
+  response.render('pages/index', {oldDomain: request.body.oldDomain, newDomain: request.body.newDomain } );
+  //response.send(request.body.oldDomain);
 });
 
 app.listen(app.get('port'), function() {

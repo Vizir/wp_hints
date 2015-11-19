@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    Generating queries to change the domain from <%= oldDomain%> to <%=newDomain%>.
+    The queries will change siteurl, homeurl, GUID, post meta, URLs in the content and images. 
+  </div>
+</div>
+<h4><Change/h4>
+<div class="row">
+  <div class="col-md-12">
+    Generating queries to change the domain from <%= oldDomain%> to <%newDomain%>.
+
+    <xmp>
+      UPDATE wp_options SET option_value = REPLACE(option_value, '<%=oldDomain%>', '<%=newDomain%>') WHERE option_name = 'home' OR option_name = 'siteurl';
+
+      UPDATE wp_posts SET guid = REPLACE (guid, '<%=oldDomain%>', '<%=newDomain%>');
+
+      UPDATE wp_posts SET post_content = REPLACE (post_content, '<%=oldDomain%>', '<%=newDomain%>');
+
+      UPDATE wp_postmeta SET meta_value = REPLACE (meta_value, '<%=oldDomain%>', '<%=newDomain%>');
+
+      UPDATE wp_posts SET post_content = REPLACE (post_content, 'src="<%=oldDomain%>', 'src="<%=newDomain%>');
+
+      UPDATE wp_posts SET guid = REPLACE (guid, '<%=oldDomain%>', '<%=newDomain%>') WHERE post_type = 'attachment'; 
+
+    </xmp>
+  </div>
+</div>
